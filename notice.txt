@@ -1,0 +1,20 @@
+注意事项：
+1、依赖
+由于dubbo已经是Apache维护，所以添加pom时，应该是
+<dependency>
+    <groupId>org.apache.dubbo</groupId>
+     <artifactId>dubbo</artifactId>
+    <version>2.7.8</version>
+ </dependency>
+
+2、在dubbo启动的过程中报错误：java.lang.ClassNotFoundException: javassist.ClassPath，调试发现代码：Class<?> clazz = Class.forName(line, true, classLoader)执行加载类com.alibaba.dubbo.common.compiler.support.JavassistCompiler时报：java.lang.NoClassDefFoundError: javassist/ClassPath
+
+需要添加依赖
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.18.1-GA</version>
+        </dependency>
+3、注意在写dubbo spring配置文件时，命名空间要是Apache的
+xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+4、分布式开发，实体类必需要进行序列化。
